@@ -1,4 +1,5 @@
 #include "SnakeController.hpp"
+#include "SnakeSegments.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -61,13 +62,6 @@ Controller::Controller(IPort& p_displayPort, IPort& p_foodPort, IPort& p_scorePo
         throw ConfigurationError();
     }
 }
-
-bool Controller::isSegmentAtPosition(int x, int y) const
-{
-    return m_segments.end() !=  std::find_if(m_segments.cbegin(), m_segments.cend(),
-        [x, y](auto const& segment){ return segment.x == x and segment.y == y; });
-}
-
 bool Controller::isPositionOutsideMap(int x, int y) const
 {
     return x < 0 or y < 0 or x >= m_mapDimension.first or y >= m_mapDimension.second;
